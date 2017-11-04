@@ -29,7 +29,7 @@ var (
 
 func init() {
 	flag.StringVar(&token, "token", "", "Mandatory GitHub API token")
-	flag.StringVar(&repo, "repo", "", "(optional) Search threads belonging to a particular repo.\n\tYou must own the repo or be a member of the organization which owns the repo.")
+	flag.StringVar(&repo, "repo", "", "(optional) Search threads belonging to a particular repo.\n\tYou must be a member of the organization which owns the repo.")
 	flag.BoolVar(&version, "version", false, "Print version and exit")
 	flag.BoolVar(&version, "v", false, "(shorthand) Print version and exit")
 
