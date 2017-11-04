@@ -65,7 +65,7 @@ func main() {
 	if len(repo) == 0 {
 		fmt.Printf("Fetching threads you are subscribed to...\n")
 	} else {
-		fmt.Printf("Fetching threads you are subscribed to in %s...\n", repo)
+		fmt.Printf("Fetching threads you are subscribed in %s...\n", repo)
 	}
 
 	output := getSubscribedThreads(ctx, client, repo)

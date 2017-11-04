@@ -1,6 +1,6 @@
 # github-subscribed
 
-github-subscribed is a tool to list all subscribed threads (issues and pull requests) you are subscribed to.
+github-subscribed is a tool to list all threads (issues and pull requests) you are subscribed to.
 Please note that the subscribed threads will only be generated for repositories you own or for organizations
 you are a member of.
 
