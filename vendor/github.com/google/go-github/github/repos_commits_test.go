@@ -16,13 +16,12 @@ import (
 )
 
 func TestRepositoriesService_ListCommits(t *testing.T) {
-	setup()
+	client, mux, _, teardown := setup()
 	defer teardown()
 
 	// given
 	mux.HandleFunc("/repos/o/r/commits", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		testHeader(t, r, "Accept", mediaTypeGitSigningPreview)
 		testFormValues(t, r,
 			values{
 				"sha":    "s",
@@ -53,12 +52,11 @@ func TestRepositoriesService_ListCommits(t *testing.T) {
 }
 
 func TestRepositoriesService_GetCommit(t *testing.T) {
-	setup()
+	client, mux, _, teardown := setup()
 	defer teardown()
 
 	mux.HandleFunc("/repos/o/r/commits/s", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		testHeader(t, r, "Accept", mediaTypeGitSigningPreview)
 		fmt.Fprintf(w, `{
 		  "sha": "s",
 		  "commit": { "message": "m" },
@@ -128,7 +126,7 @@ func TestRepositoriesService_GetCommit(t *testing.T) {
 }
 
 func TestRepositoriesService_GetCommitRaw_diff(t *testing.T) {
-	setup()
+	client, mux, _, teardown := setup()
 	defer teardown()
 
 	const rawStr = "@@diff content"
@@ -150,7 +148,7 @@ func TestRepositoriesService_GetCommitRaw_diff(t *testing.T) {
 }
 
 func TestRepositoriesService_GetCommitRaw_patch(t *testing.T) {
-	setup()
+	client, mux, _, teardown := setup()
 	defer teardown()
 
 	const rawStr = "@@patch content"
@@ -172,7 +170,7 @@ func TestRepositoriesService_GetCommitRaw_patch(t *testing.T) {
 }
 
 func TestRepositoriesService_GetCommitRaw_invalid(t *testing.T) {
-	setup()
+	client, _, _, teardown := setup()
 	defer teardown()
 
 	_, _, err := client.Repositories.GetCommitRaw(context.Background(), "o", "r", "s", RawOptions{100})
@@ -185,7 +183,7 @@ func TestRepositoriesService_GetCommitRaw_invalid(t *testing.T) {
 }
 
 func TestRepositoriesService_GetCommitSHA1(t *testing.T) {
-	setup()
+	client, mux, _, teardown := setup()
 	defer teardown()
 	const sha1 = "01234abcde"
 
@@ -226,7 +224,7 @@ func TestRepositoriesService_GetCommitSHA1(t *testing.T) {
 }
 
 func TestRepositoriesService_CompareCommits(t *testing.T) {
-	setup()
+	client, mux, _, teardown := setup()
 	defer teardown()
 
 	mux.HandleFunc("/repos/o/r/compare/b...h", func(w http.ResponseWriter, r *http.Request) {
